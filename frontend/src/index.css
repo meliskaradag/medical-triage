@@ -7,4 +7,6 @@ body {
   background: linear-gradient(180deg, #f5f7fb 0%, #ffffff 60%, #eef2f7 100%);
   color: #0f172a;
   min-height: 100vh;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
 }
