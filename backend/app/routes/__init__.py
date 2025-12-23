@@ -1,4 +1,4 @@
 """Route modules."""
-from backend.app.routes import healthcheck, predict, privacy, symptoms, timeline
+from backend.app.routes import auth, healthcheck, predict, privacy, symptoms, timeline
 
-__all__ = ["healthcheck", "predict", "symptoms", "timeline", "privacy"]
+__all__ = ["auth", "healthcheck", "predict", "symptoms", "timeline", "privacy"]

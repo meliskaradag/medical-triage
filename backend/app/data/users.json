@@ -1,0 +1,29 @@
+[
+  {
+    "id": "346b3998-b678-4935-9e29-117434297158",
+    "name": "melis",
+    "email": "123@gm.com",
+    "salt": "c252e7159d7dc2949661cec2e17c18cb",
+    "password_hash": "e7bdad538447a562c2faeef9a1135461058260cf5e85f75fe06960ae4eb58b65",
+    "created_at": "2025-12-23T14:54:18.985726+00:00",
+    "auth_token": "55553a2abbba4913141726ec20702544dc178e2bf2735e11"
+  },
+  {
+    "id": "eda06e93-7d16-4444-b745-d014953e99cd",
+    "name": "melis",
+    "email": "me@gm.com",
+    "salt": "c18e11762083dc91bdbcb490a03387b5",
+    "password_hash": "5d17699b182a7d4506ad0c1d1198918304aaaf8882600f32ba62f60413cf9265",
+    "created_at": "2025-12-23T15:56:05.327884+00:00",
+    "auth_token": "71ef9212b6a3d5fb18df1ef02971693e9c82b46285e1fa1e"
+  },
+  {
+    "id": "ee9f24c4-4e06-4062-b18a-3401ea34b4f6",
+    "name": "melis",
+    "email": "me@gm.comm",
+    "salt": "32d50cb9e56935c176854ed491dcd6b3",
+    "password_hash": "c682fa99e3ade67381b1cbc2bd3d5d432a2087b35e01bf6dd99bb3e5fb1b812a",
+    "created_at": "2025-12-23T16:21:16.650425+00:00",
+    "auth_token": "10113e92dd75d36fb92f89ff8d2f65f6342dbf8d29460fdf"
+  }
+]

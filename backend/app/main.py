@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.core.config import get_settings
 from backend.app.ml import inference
-from backend.app.routes import healthcheck, predict, privacy, symptoms, timeline
+from backend.app.routes import auth, healthcheck, predict, privacy, symptoms, timeline
 
 settings = get_settings()
 logger = logging.getLogger(__name__)
@@ -24,6 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(healthcheck.router)
+app.include_router(auth.router)
 app.include_router(predict.router)
 app.include_router(symptoms.router)
 app.include_router(timeline.router)

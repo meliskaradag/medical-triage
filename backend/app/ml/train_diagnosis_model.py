@@ -10,7 +10,7 @@ from typing import Dict, List
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
 if str(ROOT_DIR) not in sys.path:
@@ -50,6 +50,23 @@ def _extract_samples(dataset, symptom_to_index, severity_map) -> tuple[np.ndarra
     return np.vstack(features), labels
 
 
+def _dedupe_samples(X: np.ndarray, y: List[str]) -> tuple[np.ndarray, np.ndarray]:
+    """Drop exact duplicate feature/label pairs to reduce leakage in the holdout split."""
+    keep_vectors: List[np.ndarray] = []
+    keep_labels: List[str] = []
+    seen: set[tuple[bytes, str]] = set()
+
+    for vector, label in zip(X, y):
+        key = (vector.tobytes(), label)
+        if key in seen:
+            continue
+        seen.add(key)
+        keep_vectors.append(vector)
+        keep_labels.append(label)
+
+    return np.vstack(keep_vectors), np.array(keep_labels)
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     settings = get_settings()
@@ -66,8 +83,9 @@ def main() -> None:
     if not symptom_to_index:
         raise RuntimeError("No symptoms found in dataset.")
 
-    X, y = _extract_samples(dataset, symptom_to_index, severity_map)
-    y_array = np.array(y)
+    X_raw, y_raw = _extract_samples(dataset, symptom_to_index, severity_map)
+    X, y_array = _dedupe_samples(X_raw, y_raw)
+    logging.info("Built dataset with %d samples across %d classes (deduped from %d).", len(y_array), len(set(y_array)), len(y_raw))
 
     clf = RandomForestClassifier(
         n_estimators=400,
@@ -83,7 +101,11 @@ def main() -> None:
     )
     clf.fit(X_train, y_train)
     report = classification_report(y_test, clf.predict(X_test))
-    logging.info("RandomForest evaluation:\n%s", report)
+    logging.info("RandomForest holdout evaluation (20%% stratified split):\n%s", report)
+
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    cv_scores = cross_val_score(clf, X, y_array, cv=cv, scoring="f1_weighted", n_jobs=1)
+    logging.info("5-fold CV weighted F1: mean=%.4f std=%.4f scores=%s", cv_scores.mean(), cv_scores.std(), np.round(cv_scores, 4).tolist())
 
     clf.fit(X, y_array)
 

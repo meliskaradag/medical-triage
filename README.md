@@ -19,7 +19,16 @@ frontend/
 requirements.txt       # backend/training dependencies
 ```
 
-All ML models are trained exclusively with the four datasets in `data/`.
+### Data files (not committed)
+
+The CSV datasets are not stored in the repo (see `.gitignore`). Place these files before running training or the API:
+
+- `data/dataset.csv`
+- `data/Symptom-severity.csv`
+- `data/symptom_Description.csv`
+- `data/symptom_precaution.csv`
+
+Use the same public medical symptom/disease dataset referenced for the project (e.g., the Kaggle “Disease Symptom Prediction” CSV bundle). Keep the filenames as above. The backend also loads from `backend/app/data/`, so keep a copy there or adjust paths in `backend/app/data/loader.py` if needed.
 
 ## Backend setup
 

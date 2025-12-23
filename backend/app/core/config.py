@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     timeline_log_path: Path = Field(
         default_factory=lambda: Path(__file__).resolve().parents[1] / "data" / "timeline_log.json"
     )
+    user_store_path: Path = Field(
+        default_factory=lambda: Path(__file__).resolve().parents[1] / "data" / "users.json"
+    )
 
     @property
     def dataset_path(self) -> Path:
