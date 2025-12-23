@@ -1,0 +1,39 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Environment
+.env
+.env.*
+*.env
+
+# OS junk
+.DS_Store
+
+# Build/packaging output
+.dist/
+
+# Data (datasets/logs stored elsewhere; see README for source)
+data/*.csv
+backend/app/data/*.csv
+backend/app/data/timeline_log.json
+
+# Backend
+backend/app/__pycache__/
+backend/app/**/__pycache__/
+backend/app/models/*.pkl
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.package-lock.json
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE/editor
+.vscode/
+*.swp
